@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { insertCategory } from "../database/budget";
-import { Container } from "./NewExpense.styles";
+import { Container } from "./NewCategory.styles";
 
-const NewExpense = () => {
+const NewCategory = () => {
   const [type, setType] = useState("home");
   const [category, setCategory] = useState("");
 
   const createCategory = () => {
-    console.log(insertCategory(1, { type, category }));
+    insertCategory(1, { type, category });
   };
 
   return (
@@ -29,4 +29,4 @@ const NewExpense = () => {
   );
 };
 
-export default NewExpense;
+export default NewCategory;

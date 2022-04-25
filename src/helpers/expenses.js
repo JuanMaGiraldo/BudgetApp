@@ -1,6 +1,6 @@
 const filterExpensesThisMonth = (expenses) => {
   const today = new Date();
-  const expensesThisMonth =  expenses.filter(
+  const expensesThisMonth = expenses.filter(
     ({ month }) => month === `${today.getMonth()}-${today.getFullYear()}`
   );
 
@@ -8,14 +8,16 @@ const filterExpensesThisMonth = (expenses) => {
 };
 
 const filterExpensesByCategories = (expenses) => {
-  const expensesFiltered = {basic: [], saving: [], personal: []};
+  const expensesFiltered = { home: [], saving: [], personal: [] };
 
-  expenses.forEach(expense => {
-    expensesFiltered[expense.type].push({x: expense.category, y: expense.value});
-  })
+  expenses.forEach((expense) => {
+    expensesFiltered[expense.type].push({
+      x: expense.category,
+      y: expense.value,
+    });
+  });
 
   return expensesFiltered;
-}
-
+};
 
 export { filterExpensesThisMonth };

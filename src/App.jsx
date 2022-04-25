@@ -1,11 +1,13 @@
 import React from "react";
 import Home from "./pages/Home";
-import NewExpense from "./pages/NewExpense";
+import NewCategory from "./pages/NewCategory";
+import NewExpense from "./Screens/NewExpense";
 
 const App = () => {
   return (
     <>
       <Home />
+      <NewCategory />
       <NewExpense />
     </>
   );

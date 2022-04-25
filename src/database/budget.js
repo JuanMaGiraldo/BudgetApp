@@ -1,9 +1,9 @@
 import { db } from "../firebase";
 import { doc, addDoc, collection, getDocs, getDoc } from "firebase/firestore";
 
-const insertExpense = async (userId, expense) => {
+const insertExpense = (userId, expense) => {
   const today = new Date();
-  await addDoc(collection(db, "users", String(userId), "expenses"), {
+  return addDoc(collection(db, "users", String(userId), "expenses"), {
     ...expense,
     month: `${today.getMonth()}-${today.getFullYear()}`,
     day: `${today.getDate()}`,
@@ -23,6 +23,14 @@ export const getExpenses = async (userId) => {
   );
   const expenses = notesSnapshot.docs.map((doc) => doc.data());
   return expenses;
+};
+
+export const getCategories = async (userId) => {
+  const notesSnapshot = await getDocs(
+    collection(db, "users", String(userId), "categories")
+  );
+  const categories = notesSnapshot.docs.map((doc) => doc.data());
+  return categories;
 };
 
 export const getUserData = async (userId) => {

@@ -4,6 +4,7 @@ import Title from "../../Utils/Title";
 import { Container } from "./PieChart.styles";
 import { numberWithCommas } from "../../helpers/money";
 function PieChart({ title, data, limit }) {
+  console.log(title, data, limit);
   if (!data || !limit) return null;
 
   const dataToGraph = [...data];
@@ -18,12 +19,10 @@ function PieChart({ title, data, limit }) {
     [{}]
   );
   newData.shift();
-
-  console.log(newData);
-
   const spent = newData.reduce((prev, current) => prev + current.y, 0);
   const remain = limit - spent;
   newData.push({ x: numberWithCommas(remain), y: remain });
+  console.log(newData);
 
   return (
     <Container>

@@ -7,30 +7,21 @@ import { filterExpensesThisMonth } from "../helpers/expenses";
 const Home = () => {
   const userID = 1;
   const [salary, setSalary] = useState(0);
-  const [basicExpensesPercentage, setBasicExpensesPercentage] = useState(0);
+  const [homeExpensesPercentage, sethomeExpensesPercentage] = useState(0);
   const [investmentPercentage, setInvestmentPercentage] = useState(0);
   const [personalPercentage, setPersonalPercentage] = useState(0);
-  const [basicData, setBasicData] = useState([]);
+  const [homeData, setHomeData] = useState([]);
   const [savingData, setSavingData] = useState([]);
   const [personalData, setPersonalData] = useState([]);
 
-  const basicExpensesLimit = salary * basicExpensesPercentage;
+  const homeExpensesLimit = salary * homeExpensesPercentage;
   const investmentLimit = salary * investmentPercentage;
   const personalLimit = salary * personalPercentage;
 
-  //
-  // {JSON.stringify(data)}
-
   useEffect(async () => {
-    // insertExpense(1, {
-    //   category: 3,
-    //   value: 3100,
-    //   type: "saving",
-    // });
-
     getExpenses(userID).then((data) => {
-      const { basic, saving, personal } = filterExpensesThisMonth(data);
-      setBasicData(basic);
+      const { home, saving, personal } = filterExpensesThisMonth(data);
+      setHomeData(home);
       setSavingData(saving);
       setPersonalData(personal);
     });
@@ -38,12 +29,12 @@ const Home = () => {
     getUserData(userID).then(
       ({
         salary,
-        basicExpensesPercentage,
+        homeExpensesPercentage,
         investmentPercentage,
         personalPercentage,
       }) => {
         setSalary(+salary);
-        setBasicExpensesPercentage(+basicExpensesPercentage);
+        sethomeExpensesPercentage(+homeExpensesPercentage);
         setInvestmentPercentage(+investmentPercentage);
         setPersonalPercentage(+personalPercentage);
       }
@@ -54,9 +45,9 @@ const Home = () => {
     <Container>
       <GraphsContainer>
         <PieChart
-          title={"Basic expenses"}
-          data={basicData}
-          limit={basicExpensesLimit}
+          title={"Home expenses"}
+          data={homeData}
+          limit={homeExpensesLimit}
         />
         <PieChart
           title={"Savings/Investment"}
