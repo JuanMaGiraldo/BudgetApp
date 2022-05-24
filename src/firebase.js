@@ -4,6 +4,7 @@ import { getFirestore } from "firebase/firestore";
 const firebaseConfig = {
   apiKey: "AIzaSyDFLYEp71J5WAymI5X3gvLFO1UAnBGkg0k",
   authDomain: "budgetapp-174d5.firebaseapp.com",
+  databaseURL: "https://budgetapp-174d5-default-rtdb.firebaseio.com",
   projectId: "budgetapp-174d5",
   storageBucket: "budgetapp-174d5.appspot.com",
   messagingSenderId: "564632473599",

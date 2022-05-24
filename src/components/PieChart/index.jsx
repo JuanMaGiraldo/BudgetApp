@@ -4,16 +4,20 @@ import Title from "../../Utils/Title";
 import { Container } from "./PieChart.styles";
 import { numberWithCommas } from "../../helpers/money";
 function PieChart({ title, data, limit }) {
-  console.log(title, data, limit);
   if (!data || !limit) return null;
 
   const dataToGraph = [...data];
+  const dict = {};
 
   const newData = dataToGraph.reduce(
     (group, product) => {
       const { x } = product;
-      group[x] = group[x] ?? { x, y: 0 };
-      group[x]["y"] += product.y;
+
+      if (!(x in dict)) dict[x] = group.length;
+      const index = dict[x];
+
+      group[index] = group[index] ?? { x, y: 0 };
+      group[index]["y"] += parseInt(product.y);
       return group;
     },
     [{}]
@@ -22,7 +26,6 @@ function PieChart({ title, data, limit }) {
   const spent = newData.reduce((prev, current) => prev + current.y, 0);
   const remain = limit - spent;
   newData.push({ x: numberWithCommas(remain), y: remain });
-  console.log(newData);
 
   return (
     <Container>
@@ -38,7 +41,11 @@ function PieChart({ title, data, limit }) {
           data={newData}
           labels={({ datum }) => `${datum.x}`}
           style={{
-            labels: { fill: "black", fontSize: 10, fontWeight: "bold" },
+            labels: {
+              fill: "black",
+              fontSize: 10,
+              fontWeight: "bold",
+            },
           }}
         />
         <VictoryLabel
